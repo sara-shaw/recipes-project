@@ -8,22 +8,29 @@ import { Subject } from 'rxjs';
 export class RecipeService {
   recipesChanged = new Subject<Recipe[]>();
 
-  private recipes: Recipe[] = [
-    new Recipe(
-      'A Test Recipe',
-      'This is a description',
-      'https://content-praleska-eu.azureedge.net/content/blog/recipes/2023/4/25/my-cinnabon-recipe/Buns-on-a-wooden-table.webp',
-      [new Ingredient('Flour', 1), new Ingredient('Eggs', 3)]
-    ),
-    new Recipe(
-      'Another Test Recipe',
-      'This is a description',
-      'https://content-praleska-eu.azureedge.net/content/blog/recipes/2023/4/25/my-cinnabon-recipe/Buns-on-a-wooden-table.webp',
-      [new Ingredient('Sugar', 1), new Ingredient('Milk', 3)]
-    ),
-  ];
+  // private recipes: Recipe[] = [
+  //   new Recipe(
+  //     'A Test Recipe',
+  //     'This is a description',
+  //     'https://content-praleska-eu.azureedge.net/content/blog/recipes/2023/4/25/my-cinnabon-recipe/Buns-on-a-wooden-table.webp',
+  //     [new Ingredient('Flour', 1), new Ingredient('Eggs', 3)]
+  //   ),
+  //   new Recipe(
+  //     'Another Test Recipe',
+  //     'This is a description',
+  //     'https://content-praleska-eu.azureedge.net/content/blog/recipes/2023/4/25/my-cinnabon-recipe/Buns-on-a-wooden-table.webp',
+  //     [new Ingredient('Sugar', 1), new Ingredient('Milk', 3)]
+  //   ),
+  // ];
+
+  private recipes: Recipe[] = [];
 
   constructor(private slService: ShoppingListService) {}
+
+  setRecipes(recipes: Recipe[]) {
+    this.recipes = recipes;
+    this.recipesChanged.next(this.recipes.slice());
+  }
 
   getRecipes() {
     return this.recipes.slice(); //returns a copy of the array
